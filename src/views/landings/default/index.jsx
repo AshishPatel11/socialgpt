@@ -7,6 +7,8 @@ import useDataThemeMode from "@/hooks/useDataThemeMode";
 
 // @data
 import { feature18, hero } from "./data";
+import { Footer7 } from "@/blocks/footer";
+import Team from "./team";
 
 /***************************  PAGE - MAIN  ***************************/
 
@@ -28,6 +30,8 @@ export default function Main() {
                 ]}
                 offset="200px"
             />
+            <Team />
+            <Footer7 />
         </>
     );
 }

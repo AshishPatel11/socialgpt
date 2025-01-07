@@ -34,7 +34,6 @@ export default function MainLayout({ children }) {
             {/* app/(landing)/* */}
             {children}
             {/* footer section */}
-            <Footer7 />
         </>
     );
 }
