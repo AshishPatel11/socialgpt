@@ -16,7 +16,7 @@ export default function Main() {
     useDataThemeMode();
 
     return (
-        <>
+        <div style={{ backgroundColor: "#ffffff" }}>
             <Hero17 {...hero} />
             <LazySection
                 sections={[
@@ -32,6 +32,6 @@ export default function Main() {
             />
             <Team />
             <Footer7 />
-        </>
+        </div>
     );
 }

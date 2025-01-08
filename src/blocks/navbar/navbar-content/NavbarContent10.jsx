@@ -19,6 +19,7 @@ import {
     NavSecondaryButton,
 } from "@/components/navbar";
 import SvgIcon from "@/components/SvgIcon";
+import { usePathname } from "next/navigation";
 
 /***************************  NAVBAR - CONTENT 10  ***************************/
 
@@ -27,6 +28,7 @@ export default function NavbarContent10({
     primaryBtn,
     secondaryBtn,
 }) {
+    const pathname = usePathname();
     const theme = useTheme();
 
     const downMD = useMediaQuery(theme.breakpoints.down("md"));
@@ -51,9 +53,11 @@ export default function NavbarContent10({
                 {!downSM && (
                     <>
                         <NavSecondaryButton {...secondaryBtn} />
-                        <ButtonAnimationWrapper>
-                            <NavPrimaryButton {...primaryBtn} />
-                        </ButtonAnimationWrapper>
+                        {pathname !== "/chat" && (
+                            <ButtonAnimationWrapper>
+                                <NavPrimaryButton {...primaryBtn} />
+                            </ButtonAnimationWrapper>
+                        )}
                     </>
                 )}
                 {downMD && (
@@ -95,9 +99,13 @@ export default function NavbarContent10({
                                         }}
                                     >
                                         <NavSecondaryButton {...secondaryBtn} />
-                                        <ButtonAnimationWrapper>
-                                            <NavPrimaryButton {...primaryBtn} />
-                                        </ButtonAnimationWrapper>
+                                        {pathname !== "/chat" && (
+                                            <ButtonAnimationWrapper>
+                                                <NavPrimaryButton
+                                                    {...primaryBtn}
+                                                />
+                                            </ButtonAnimationWrapper>
+                                        )}
                                     </Stack>
                                 )}
                             </ContainerWrapper>

@@ -43,7 +43,7 @@ export const hero = {
     headLine: "Enhance Your Social Media Impact",
     captionLine:
         "Leverage AI-powered insights to amplify your reach and elevate your strategy.",
-    primaryBtn: { children: "Get Started", href: "" },
+    primaryBtn: { children: "Get Started", href: "/chat" },
     // videoSrc: "https://d2elhhoq00m1pj.cloudfront.net/saasable-intro.mp4",
     videoThumbnail: "/assets/videos/thumbnails/intro-thumbnail.png",
     listData: [

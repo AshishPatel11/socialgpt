@@ -7,7 +7,8 @@ import Box from "@mui/material/Box";
 
 // @project
 import branding from "@/branding.json";
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+import Image from "next/image";
 
 /***************************  LOGO - MAIN  ***************************/
 
@@ -25,9 +26,20 @@ export default function LogoMain() {
         />
     ) : (
         <Box sx={{ width: { xs: 112, lg: 140 }, height: { xs: 22, lg: 26 } }}>
-            <Typography variant="h3" sx={{ color: "#004B73", fontWeight: 900 }}>
-                SocialGPT
-            </Typography>
+            <Stack alignItems={"center"} direction={"row"} spacing={1}>
+                <Image
+                    src="/assets/images/shared/logo.svg"
+                    alt="logo"
+                    width={24}
+                    height={27}
+                />
+                <Typography
+                    variant="h3"
+                    sx={{ color: "#004B73", fontWeight: 900 }}
+                >
+                    SocialGPT
+                </Typography>
+            </Stack>
         </Box>
     );
 }

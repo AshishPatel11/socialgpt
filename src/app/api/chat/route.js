@@ -121,8 +121,7 @@ class LangflowClient {
 
 const flowIdOrName = "6ca33a09-8674-4a65-a052-3d500e6afbef";
 const langflowId = "92012475-ebb9-4e06-a5a8-ef1f57809e82";
-const applicationToken =
-    "AstraCS:REZgPvpssgdfrElurGkskijv:2e3e65b17d829369b9f38d9c1a5adf1fcf2c09fd171783227bfd6f6c435b3110";
+const applicationToken = process.env.APPLICATION_TOKEN;
 const tweaks = {
     "ChatInput-AKp0S": {
         background_color: "",
@@ -143,7 +142,7 @@ const tweaks = {
         context: "",
         question: "",
         template:
-            "{context}\n\n---\n\nGiven the context above, answer the question as best as possible.\n\nQuestion: {question}\n\nAnswer: ",
+            "{context}\n\n---\n\nYou are a AI powered chat bot assistant to analyze the social media data. Answer the question as best as possible.\n\nQuestion: {question}\n\nAnswer: ",
     },
     "SplitText-vNQ5C": {
         chunk_overlap: 200,
