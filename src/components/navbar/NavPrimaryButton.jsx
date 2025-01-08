@@ -1,3 +1,4 @@
+"use client";
 import PropTypes from "prop-types";
 // @next
 import NextLink from "next/link";
