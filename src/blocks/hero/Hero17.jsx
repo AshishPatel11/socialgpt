@@ -32,312 +32,302 @@ const options = { root: null, rootMargin: "0px", threshold: 0.6 };
 /***************************  HERO - 17  ***************************/
 
 export default function Hero17({
-    chip,
-    headLine,
-    captionLine,
-    primaryBtn,
-    videoSrc,
-    videoThumbnail,
-    listData,
+  chip,
+  headLine,
+  captionLine,
+  primaryBtn,
+  videoSrc,
+  videoThumbnail,
+  listData,
 }) {
-    const theme = useTheme();
-    const boxRadius = { xs: 24, sm: 32, md: 40 };
+  const theme = useTheme();
+  const boxRadius = { xs: 24, sm: 32, md: 40 };
 
-    const containerRef = useRef(null);
+  const containerRef = useRef(null);
 
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end start"],
-    });
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
 
-    const scale = useTransform(
-        scrollYProgress,
-        [0, 0.1, 0.2, 0.4, 0.6],
-        [0.9, 0.92, 0.94, 0.96, 1]
-    );
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.2, 0.4, 0.6],
+    [0.9, 0.92, 0.94, 0.96, 1]
+  );
 
-    const videoRef = useRef(null);
-    const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
-    // Handle video play/pause based on intersection with the viewport
-    useEffect(() => {
-        const handleIntersection = (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    if (videoRef.current && !isPlaying) {
-                        videoRef.current
-                            .play()
-                            .then(() => {
-                                setIsPlaying(true);
-                            })
-                            .catch((error) => {
-                                console.error("Autoplay was prevented:", error);
-                            });
-                    }
-                } else {
-                    if (videoRef.current && isPlaying) {
-                        videoRef.current.pause();
-                        setIsPlaying(false);
-                    }
-                }
-            });
-        };
-
-        const observer = new IntersectionObserver(handleIntersection, options);
-        const videoElement = videoRef.current;
-
-        if (videoElement) {
-            observer.observe(videoElement);
+  // Handle video play/pause based on intersection with the viewport
+  useEffect(() => {
+    const handleIntersection = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (videoRef.current && !isPlaying) {
+            videoRef.current
+              .play()
+              .then(() => {
+                setIsPlaying(true);
+              })
+              .catch((error) => {
+                console.error("Autoplay was prevented:", error);
+              });
+          }
+        } else {
+          if (videoRef.current && isPlaying) {
+            videoRef.current.pause();
+            setIsPlaying(false);
+          }
         }
+      });
+    };
 
-        return () => {
-            if (videoElement) {
-                observer.unobserve(videoElement);
-            }
-        };
-    }, [isPlaying]);
+    const observer = new IntersectionObserver(handleIntersection, options);
+    const videoElement = videoRef.current;
 
-    return (
-        <>
-            <Box
-                sx={{
-                    height: { xs: 592, sm: 738, md: 878 },
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: 1,
-                    zIndex: -1,
-                    borderBottomLeftRadius: boxRadius,
-                    borderBottomRightRadius: boxRadius,
-                    background: getBackgroundDots(
-                        theme.palette.grey[300],
-                        60,
-                        35
-                    ),
-                    bgcolor: "grey.100",
+    if (videoElement) {
+      observer.observe(videoElement);
+    }
+
+    return () => {
+      if (videoElement) {
+        observer.unobserve(videoElement);
+      }
+    };
+  }, [isPlaying]);
+
+  return (
+    <>
+      <Box
+        sx={{
+          height: { xs: 592, sm: 738, md: 878 },
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: 1,
+          zIndex: -1,
+          borderBottomLeftRadius: boxRadius,
+          borderBottomRightRadius: boxRadius,
+          background: getBackgroundDots(theme.palette.grey[300], 60, 35),
+          bgcolor: "grey.100",
+        }}
+      ></Box>
+      <ContainerWrapper sx={{ py: SECTION_COMMON_PY }}>
+        <Box ref={containerRef}>
+          <Box sx={{ pb: { xs: 3, sm: 4, md: 5 } }}>
+            <Stack sx={{ alignItems: "center", gap: 1.5 }}>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 1,
+                  delay: 0.1,
+                  ease: [0.215, 0.61, 0.355, 1],
                 }}
-            ></Box>
-            <ContainerWrapper sx={{ py: SECTION_COMMON_PY }}>
-                <Box ref={containerRef}>
-                    <Box sx={{ pb: { xs: 3, sm: 4, md: 5 } }}>
-                        <Stack sx={{ alignItems: "center", gap: 1.5 }}>
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{
-                                    duration: 1,
-                                    delay: 0.1,
-                                    ease: [0.215, 0.61, 0.355, 1],
-                                }}
-                            >
-                                <Chip
-                                    variant="outlined"
-                                    label={
-                                        typeof chip.label === "string" ? (
-                                            <Typography
-                                                variant="caption"
-                                                sx={{ color: "text.secondary" }}
-                                            >
-                                                {chip.label}
-                                            </Typography>
-                                        ) : (
-                                            chip.label
-                                        )
-                                    }
-                                    sx={{
-                                        bgcolor: "grey.100",
-                                        "& .MuiChip-label": {
-                                            py: 0.5,
-                                            px: 1.5,
-                                        },
-                                    }}
-                                />
-                            </motion.div>
+              >
+                <Chip
+                  variant="outlined"
+                  label={
+                    typeof chip.label === "string" ? (
+                      <Typography
+                        variant="caption"
+                        sx={{ color: "text.secondary" }}
+                      >
+                        {chip.label}
+                      </Typography>
+                    ) : (
+                      chip.label
+                    )
+                  }
+                  sx={{
+                    bgcolor: "grey.100",
+                    "& .MuiChip-label": {
+                      py: 0.5,
+                      px: 1.5,
+                    },
+                  }}
+                />
+              </motion.div>
 
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{
-                                    duration: 1,
-                                    delay: 0.2,
-                                    ease: [0.215, 0.61, 0.355, 1],
-                                }}
-                            >
-                                <Typography
-                                    variant="h1"
-                                    align="center"
-                                    sx={{ maxWidth: 800 }}
-                                >
-                                    {headLine}
-                                </Typography>
-                            </motion.div>
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{
-                                    duration: 1,
-                                    delay: 0.2,
-                                    ease: [0.215, 0.61, 0.355, 1],
-                                }}
-                            >
-                                <Box sx={{ pt: 0.5, pb: 0.75 }}>
-                                    <Wave />
-                                </Box>
-                            </motion.div>
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{
-                                    duration: 1,
-                                    delay: 0.3,
-                                    ease: [0.215, 0.61, 0.355, 1],
-                                }}
-                            >
-                                <Typography
-                                    variant="h6"
-                                    align="center"
-                                    sx={{
-                                        color: "text.secondary",
-                                        maxWidth: 650,
-                                    }}
-                                >
-                                    {captionLine}
-                                </Typography>
-                            </motion.div>
-                        </Stack>
-                        <Stack
-                            sx={{
-                                alignItems: "center",
-                                gap: 2,
-                                mt: { xs: 3, sm: 4, md: 5 },
-                            }}
-                        >
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{
-                                    duration: 1,
-                                    delay: 0.4,
-                                    ease: [0.215, 0.61, 0.355, 1],
-                                }}
-                            >
-                                <ButtonAnimationWrapper>
-                                    <Button
-                                        color="primary"
-                                        variant="contained"
-                                        startIcon={
-                                            <SvgIcon
-                                                name="tabler-sparkles"
-                                                size={16}
-                                                stroke={3}
-                                                color="background.default"
-                                            />
-                                        }
-                                        {...primaryBtn}
-                                    />
-                                </ButtonAnimationWrapper>
-                            </motion.div>
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{
-                                    duration: 1,
-                                    delay: 0.5,
-                                    ease: [0.215, 0.61, 0.355, 1],
-                                }}
-                            >
-                                <Stack
-                                    direction="row"
-                                    sx={{
-                                        gap: 1,
-                                        flexWrap: "wrap",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    {listData.map((item, index) => (
-                                        <Chip
-                                            key={index}
-                                            label={
-                                                <Typography variant="caption2">
-                                                    {item.title}
-                                                </Typography>
-                                            }
-                                            variant="outlined"
-                                            icon={
-                                                <GraphicsImage
-                                                    image={item.image}
-                                                    sx={{
-                                                        width: 16,
-                                                        height: 16,
-                                                    }}
-                                                />
-                                            }
-                                            sx={{
-                                                height: 32,
-                                                px: 1,
-                                                bgcolor: "grey.100",
-                                                "& .MuiChip-label": {
-                                                    py: 0.75,
-                                                    px: 1,
-                                                },
-                                            }}
-                                        />
-                                    ))}
-                                </Stack>
-                            </motion.div>
-                        </Stack>
-                    </Box>
-                    <motion.div
-                        initial={{ opacity: 0, y: 0 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{
-                            duration: 0.5,
-                            delay: 0.5,
-                        }}
-                        style={{ scale, height: "100%" }}
-                    >
-                        <GraphicsCard
-                            sx={{
-                                border: "5px solid",
-                                borderColor: "grey.300",
-                                height: "100%",
-                            }}
-                        >
-                            <iframe
-                                width="100%"
-                                height="100%"
-                                style={{
-                                    border: "none",
-                                    margin: 0,
-                                    padding: 0,
-                                    minHeight: "100vh",
-                                }}
-                                src="https://www.youtube.com/embed/QB7ACr7pUuE?si=H8n8OoBS3Ja4UunC&amp;controls=0"
-                                title="YouTube video player"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin"
-                                allowfullscreen
-                            ></iframe>
-                        </GraphicsCard>
-                    </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 1,
+                  delay: 0.2,
+                  ease: [0.215, 0.61, 0.355, 1],
+                }}
+              >
+                <Typography variant="h1" align="center" sx={{ maxWidth: 800 }}>
+                  {headLine}
+                </Typography>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 1,
+                  delay: 0.2,
+                  ease: [0.215, 0.61, 0.355, 1],
+                }}
+              >
+                <Box sx={{ pt: 0.5, pb: 0.75 }}>
+                  <Wave />
                 </Box>
-            </ContainerWrapper>
-        </>
-    );
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 1,
+                  delay: 0.3,
+                  ease: [0.215, 0.61, 0.355, 1],
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  align="center"
+                  sx={{
+                    color: "text.secondary",
+                    maxWidth: 650,
+                  }}
+                >
+                  {captionLine}
+                </Typography>
+              </motion.div>
+            </Stack>
+            <Stack
+              sx={{
+                alignItems: "center",
+                gap: 2,
+                mt: { xs: 3, sm: 4, md: 5 },
+              }}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 1,
+                  delay: 0.4,
+                  ease: [0.215, 0.61, 0.355, 1],
+                }}
+              >
+                <ButtonAnimationWrapper>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    startIcon={
+                      <SvgIcon
+                        name="tabler-sparkles"
+                        size={16}
+                        stroke={3}
+                        color="background.default"
+                      />
+                    }
+                    {...primaryBtn}
+                  />
+                </ButtonAnimationWrapper>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 1,
+                  delay: 0.5,
+                  ease: [0.215, 0.61, 0.355, 1],
+                }}
+              >
+                <Stack
+                  direction="row"
+                  sx={{
+                    gap: 1,
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  {listData.map((item, index) => (
+                    <Chip
+                      key={index}
+                      label={
+                        <Typography variant="caption2">{item.title}</Typography>
+                      }
+                      variant="outlined"
+                      icon={
+                        <GraphicsImage
+                          image={item.image}
+                          sx={{
+                            width: 16,
+                            height: 16,
+                          }}
+                        />
+                      }
+                      sx={{
+                        height: 32,
+                        px: 1,
+                        bgcolor: "grey.100",
+                        "& .MuiChip-label": {
+                          py: 0.75,
+                          px: 1,
+                        },
+                      }}
+                    />
+                  ))}
+                </Stack>
+              </motion.div>
+            </Stack>
+          </Box>
+          <motion.div
+            initial={{ opacity: 0, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.5,
+            }}
+            style={{ scale, height: "100%" }}
+          >
+            <GraphicsCard
+              sx={{
+                border: "5px solid",
+                borderColor: "grey.300",
+                height: "100%",
+              }}
+            >
+              <iframe
+                width="100%"
+                height="100%"
+                style={{
+                  border: "none",
+                  margin: 0,
+                  padding: 0,
+                  minHeight: "100vh",
+                }}
+                src="https://www.youtube.com/embed/Bw4xcPS4Lv4"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
+            </GraphicsCard>
+          </motion.div>
+        </Box>
+      </ContainerWrapper>
+    </>
+  );
 }
 
 Hero17.propTypes = {
-    chip: PropTypes.object,
-    headLine: PropTypes.string,
-    captionLine: PropTypes.string,
-    primaryBtn: PropTypes.any,
-    videoSrc: PropTypes.string,
-    listData: PropTypes.array,
+  chip: PropTypes.object,
+  headLine: PropTypes.string,
+  captionLine: PropTypes.string,
+  primaryBtn: PropTypes.any,
+  videoSrc: PropTypes.string,
+  listData: PropTypes.array,
 };
