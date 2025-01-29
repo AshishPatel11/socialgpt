@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import Script from "next/script";
 
 // @style
 import "./globals.css";
@@ -34,6 +35,10 @@ export default function RootLayout({ children }) {
                     rel="dns-prefetch"
                     href="https://www.googletagmanager.com"
                 />
+                <Script
+                    src="https://sdk.hellouniweb.com/base/main.js"
+                    data-account="Wxofdlyj"
+                ></Script>
             </head>
             <body>
                 <AppRouterCacheProvider options={{ enableCssLayer: true }}>
