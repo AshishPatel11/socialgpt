@@ -35,11 +35,12 @@ export default function RootLayout({ children }) {
                     rel="dns-prefetch"
                     href="https://www.googletagmanager.com"
                 />
-                <Script
-                    src="https://sdk.hellouniweb.com/base/main.js"
-                    data-account="Wxofdlyj"
-                ></Script>
             </head>
+            <Script
+                src="https://staging-widget.guidy.net/v1/assets/static-pages/injector.js"
+                type="module"
+                data-account="m7lk0n4ljk"
+            />
             <body>
                 <AppRouterCacheProvider options={{ enableCssLayer: true }}>
                     <ProviderWrapper>{children}</ProviderWrapper>
